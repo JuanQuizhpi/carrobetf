@@ -1,5 +1,10 @@
 package ec.edu.ups.pweb.business;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 import java.util.List;
 
 import ec.edu.ups.pweb.dao.CarroDAO;
@@ -22,7 +27,7 @@ public class GestionCarros {
 		}else {
 			daoCarro.insert(carro);
 		}
-		
+		this.enviarCorreo("Rigistro de Carro", "Se registra un carro con placa: " + carro.getPlaca()+ " Marca: "+ carro.getMarca() + " Modelo: " + carro.getModelo());
 	}
 
 	
@@ -57,6 +62,33 @@ public class GestionCarros {
 	public List<Carro> getCarros() {
 		// TODO Auto-generated method stub
 		return daoCarro.getList();
+	}
+	
+	private void enviarCorreo(String subject, String body) {
+        String apiEndpoint = "http://localhost:8080/correojq/rs/sendEmail";
+
+        String mensaje = "{\"subject\": \"" + subject + "\", \"body\": \"" + body + "\"}";
+
+        HttpClient httpClient = HttpClient.newHttpClient();
+        
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(apiEndpoint))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(mensaje))
+                .build();
+
+        
+        try {
+            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            int statusCode = response.statusCode();
+            String responseBody = response.body();
+
+            System.out.println("Status code: " + statusCode);
+            System.out.println("Response body: " + responseBody);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
 	}
 	
 }
