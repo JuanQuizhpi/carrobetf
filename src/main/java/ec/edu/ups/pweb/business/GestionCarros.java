@@ -65,7 +65,7 @@ public class GestionCarros {
 	}
 	
 	private void enviarCorreo(String subject, String body) {
-        String apiEndpoint = "http://localhost:8080/correojq/rs/sendEmail";
+        String apiEndpoint = "http://34.23.111.107:8080/correojq/rs/sendEmail";
 
         String mensaje = "{\"subject\": \"" + subject + "\", \"body\": \"" + body + "\"}";
 
