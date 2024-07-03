@@ -1,5 +1,6 @@
 ec\edu\ups\pweb\services\CarroServices.class
 ec\edu\ups\pweb\services\ErrorMessage.class
+ec\edu\ups\pweb\business\GestionCarros$State.class
 ec\edu\ups\pweb\model\Carro.class
 ec\edu\ups\pweb\services\CORSFilter.class
 ec\edu\ups\pweb\services\PathBase.class
